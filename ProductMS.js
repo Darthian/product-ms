@@ -11,13 +11,13 @@ const connectionURL = 'mongodb://nodejsuser:Colombia1%2A@127.0.0.1:27017/';
 const databaseName = 'products?authSource=resources&gssapiServiceName=mongodb';
 
 mongoose.set('bufferCommands', false);
-mongoose.connect(connectionURL + databaseName,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, res) {
-        console.log('Connection parameters: ', connectionURL + databaseName);
-        if (err) throw err;
-        console.log('Connected to Database');
-    });
+// mongoose.connect(connectionURL + databaseName,
+//     { useNewUrlParser: true, useUnifiedTopology: true },
+//     function (err, res) {
+//         console.log('Connection parameters: ', connectionURL + databaseName);
+//         if (err) throw err;
+//         console.log('Connected to Database');
+//     });
 
 //middleware
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,6 +37,17 @@ var productsServices = express.Router();
 productsServices.route('/product')
 .post(ProductCreationCtrl.addResource)
 .get(ProductFindingCtrl.findAllProducts);
+
+// API mock
+productsServices.route('/mockFecho')
+.get(ProductFindingCtrl.mock);
+
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, GET, DELETE, PATCH, OPTIONS');
+    next();
+  });
 
 app.use(router);
 app.use('/api',productsServices);

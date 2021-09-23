@@ -7,3 +7,8 @@ exports.findAllProducts = (req, res) => {
         res.status(200).jsonp(products);
     });
 };
+
+exports.mock = (req, res) => {
+    products = {'saludo':'hola Fercho'}
+    res.status(200).jsonp(products);
+};
