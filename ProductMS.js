@@ -11,17 +11,17 @@ const connectionURL = 'mongodb://nodejsuser:Colombia1%2A@127.0.0.1:27017/';
 const databaseName = 'products?authSource=resources&gssapiServiceName=mongodb';
 
 mongoose.set('bufferCommands', false);
-// mongoose.connect(connectionURL + databaseName,
-//     { useNewUrlParser: true, useUnifiedTopology: true },
-//     function (err, res) {
-//         console.log('Connection parameters: ', connectionURL + databaseName);
-//         if (err) throw err;
-//         console.log('Connected to Database');
-//     });
+mongoose.connect(connectionURL + databaseName,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    function (err, res) {
+        console.log('Connection parameters: ', connectionURL + databaseName);
+        if (err) throw err;
+        console.log('Connected to Database');
+    });
 
 //middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded());
 app.use(methodOverride());
 
 var router = express.Router();
